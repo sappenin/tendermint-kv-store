@@ -17,6 +17,7 @@ import tendermint.abci.Types.RequestCommit;
 import tendermint.abci.Types.RequestDeliverTx;
 import tendermint.abci.Types.RequestEcho;
 import tendermint.abci.Types.RequestEndBlock;
+import tendermint.abci.Types.RequestFlush;
 import tendermint.abci.Types.RequestInfo;
 import tendermint.abci.Types.RequestInitChain;
 import tendermint.abci.Types.RequestQuery;
@@ -26,6 +27,7 @@ import tendermint.abci.Types.ResponseCommit;
 import tendermint.abci.Types.ResponseDeliverTx;
 import tendermint.abci.Types.ResponseEcho;
 import tendermint.abci.Types.ResponseEndBlock;
+import tendermint.abci.Types.ResponseFlush;
 import tendermint.abci.Types.ResponseInfo;
 import tendermint.abci.Types.ResponseInitChain;
 import tendermint.abci.Types.ResponseQuery;
@@ -253,6 +255,16 @@ public class KVStoreApp extends ABCIApplicationImplBase {
   @Override
   public void endBlock(RequestEndBlock request, StreamObserver<ResponseEndBlock> responseObserver) {
     responseObserver.onNext(ResponseEndBlock.newBuilder().build());
+    responseObserver.onCompleted();
+  }
+
+  /**
+   * @param request
+   * @param responseObserver
+   */
+  @Override
+  public void flush(RequestFlush request, StreamObserver<ResponseFlush> responseObserver) {
+    responseObserver.onNext(ResponseFlush.newBuilder().build());
     responseObserver.onCompleted();
   }
 }
